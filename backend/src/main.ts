@@ -6,6 +6,7 @@ import type { Request, Response } from "express";
 import swaggerUi from "swagger-ui-express";
 import authRouter from "./routes/auth.routes";
 import { errorMiddleware } from "./packages/error-handler/error-middleware";
+
 const swaggerDocument = await import("./swagger-output.json", {
   with: { type: "json" },
 });
@@ -39,7 +40,7 @@ app.get("/", (_req: Request, res: Response) => {
   res.status(200).send({ message: "Health of Growlance server is Good..." });
 });
 
-app.use("/auth/api", authRouter);
+app.use("/api", authRouter);
 app.use(errorMiddleware);
 
 const server = app.listen(PORT, () => {

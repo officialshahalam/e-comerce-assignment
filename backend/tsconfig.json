@@ -15,7 +15,7 @@
     "sourceMap": true,
     "baseUrl": "./src",
     "paths": {
-      "@packages/*": ["packages/*"]
+      "@packages/*": ["src/packages/*"]
     }
   },
   "include": ["src"],

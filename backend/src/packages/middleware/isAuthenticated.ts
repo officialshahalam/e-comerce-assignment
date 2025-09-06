@@ -1,8 +1,7 @@
 import type { Response, NextFunction } from "express";
-import jwt, { TokenExpiredError } from "jsonwebtoken";
-import prisma from "../libs/prisma/index";
+import jwt from "jsonwebtoken";
+import prisma from "../../configs/prisma/index";
 
-// @ts-ignore
 const isAuthenticated = async (req: any, res: Response, next: NextFunction) => {
   try {
     const token =
@@ -12,7 +11,7 @@ const isAuthenticated = async (req: any, res: Response, next: NextFunction) => {
       return res.status(401).json({ message: "Unauthorized! Token missing" });
     }
 
-    let decoded: { id: string; role: "user" | "admin" };
+    let decoded: { id: string; role: "user" | "seller" };
 
     try {
       decoded = jwt.verify(
@@ -20,24 +19,24 @@ const isAuthenticated = async (req: any, res: Response, next: NextFunction) => {
         process.env.ACCESS_TOKEN_SECRET!
       ) as typeof decoded;
     } catch (err: any) {
-      if (err instanceof TokenExpiredError) {
+      if (err.name === "TokenExpiredError") {
         return res.status(401).json({ message: "Access token expired" });
       }
       return res.status(401).json({ message: "Invalid access token" });
     }
 
-    const account = await prisma.user.findUnique({
+    const user = await prisma.user.findUnique({
       where: { id: decoded.id },
       include: {
-        avatars: true,
+        avatar: true,
       },
     });
 
-    if (!account) {
+    if (!user) {
       return res.status(401).json({ message: "Account not found" });
     }
-    
-    req.user = account;
+
+    req.user = user;
     req.role = decoded.role;
     next();
   } catch (error) {
