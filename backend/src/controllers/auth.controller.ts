@@ -12,7 +12,7 @@ import {
   verifyOtp,
 } from "packages/utils/auth.hepler";
 import { randomUUID } from "crypto";
-import jwt, { JsonWebTokenError } from "jsonwebtoken";
+import jwt from "jsonwebtoken";
 
 export const userRegistration = async (
   req: Request,
@@ -215,5 +215,247 @@ export const resetUserPassword = async (
     });
   } catch (error) {
     next(error);
+  }
+};
+
+export const getCategories = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const config = await prisma.siteConfig.findFirst();
+    if (!config) {
+      return res.status(404).json({
+        success: false,
+        message: "Categories not founds",
+      });
+    }
+    res.status(200).json({
+      categories: config.categories,
+      subCategories: config.subCategories,
+    });
+  } catch (error) {
+    return next(error);
+  }
+};
+
+export const createProduct = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const {
+      title,
+      description,
+      category,
+      subCategory,
+      images = [],
+      sale_price,
+      regular_price,
+      colors = [],
+      sizes = [],
+      stock,
+      warranty,
+    } = req.body;
+
+    if (
+      !title ||
+      !description ||
+      !category ||
+      !subCategory ||
+      !images ||
+      !sale_price ||
+      !regular_price ||
+      !colors ||
+      !sizes ||
+      !stock
+    ) {
+      return next(new ValidationError("Missing Required Fields"));
+    }
+
+    const newProduct = await prisma.product.create({
+      data: {
+        title,
+        description,
+        category,
+        subCategory,
+        images: {
+          create: images
+            .filter((img: any) => img && img.fileId && img.file_url)
+            .map((image: any) => ({
+              file_id: image.fileId,
+              url: image.file_url,
+            })),
+        },
+        colors: colors || [],
+        sizes: sizes || [],
+        stock: parseInt(stock),
+        sale_price: parseFloat(sale_price),
+        regular_price: parseFloat(regular_price),
+        warranty,
+      },
+      include: { images: true },
+    });
+
+    res.status(201).json({
+      success: true,
+      newProduct,
+      message: "Product is created successfully",
+    });
+  } catch (error) {
+    return next(error);
+  }
+};
+
+export const getFilteredProducts = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const {
+      priceRange = [0, 1000],
+      categories = [],
+      colors = [],
+      sizes = [],
+      page = 1,
+      limit = 12,
+    } = req.query;
+    const parsedPage = Number(page);
+    const parsedLimit = Number(limit);
+    const skip = (parsedPage - 1) * parsedLimit;
+
+    const parsedPriceRange =
+      typeof priceRange === "string"
+        ? priceRange.split(",").map(Number)
+        : [0, 1000];
+
+    const filters: Record<string, any> = {
+      sale_price: {
+        gte: parsedPriceRange[0],
+        lte: parsedPriceRange[1],
+      },
+    };
+    if (categories && (categories as string[]).length > 0) {
+      filters.category = {
+        in: Array.isArray(categories)
+          ? categories
+          : String(categories).split(","),
+      };
+    }
+
+    if (colors && (colors as string[]).length > 0) {
+      filters.colors = {
+        hasSome: Array.isArray(colors) ? colors : String(colors).split(","),
+      };
+    }
+
+    if (sizes && (sizes as string[]).length > 0) {
+      filters.sizes = {
+        hasSome: Array.isArray(sizes) ? sizes : String(sizes).split(","),
+      };
+    }
+
+    const [products, total] = await Promise.all([
+      prisma.product.findMany({
+        where: filters,
+        skip,
+        take: parsedLimit,
+        include: {
+          images: true,
+        },
+      }),
+      prisma.product.count({ where: filters }),
+    ]);
+
+    const totalPage = Math.ceil(total / parsedLimit);
+    res.status(200).json({
+      products,
+      pagination: {
+        total,
+        page: parsedPage,
+        totalPage,
+      },
+    });
+  } catch (error) {
+    return next(error);
+  }
+};
+
+export const deleteProduct = async (
+  req: any,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const { productId } = req.params;
+    const product = await prisma.product.findUnique({
+      select: {
+        id: true,
+        isDeleted: true,
+      },
+      where: {
+        id: productId,
+      },
+    });
+    if (!product) {
+      return next(new ValidationError("Product not found"));
+    }
+    if (product.isDeleted) {
+      return next(new ValidationError("product already deleted"));
+    }
+    const deletedProduct = await prisma.product.update({
+      where: { id: productId },
+      data: {
+        isDeleted: true,
+        deletedAt: new Date(Date.now() + 24 * 60 * 60 * 1000),
+      },
+    });
+    return res.status(200).json({
+      message:
+        "Product is Scheduled for deletion in 24 hours. You can restore it within this time",
+      deletedAt: deletedProduct.deletedAt,
+    });
+  } catch (error) {
+    return next(error);
+  }
+};
+
+export const restoreProduct = async (
+  req: any,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const { productId } = req.params;
+    const product = await prisma.product.findUnique({
+      select: {
+        id: true,
+        isDeleted: true,
+      },
+      where: {
+        id: productId,
+      },
+    });
+    if (!product) {
+      return next(new ValidationError("Product not found"));
+    }
+    if (!product.isDeleted) {
+      return next(new ValidationError("product is not in deleted state"));
+    }
+    await prisma.product.update({
+      where: { id: productId },
+      data: {
+        isDeleted: false,
+        deletedAt: null,
+      },
+    });
+    return res.status(200).json({
+      message: "Product is restored successfully",
+    });
+  } catch (error) {
+    return next(error);
   }
 };

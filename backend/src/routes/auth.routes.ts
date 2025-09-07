@@ -1,8 +1,13 @@
 import express, { Router } from "express";
 import {
+  createProduct,
+  deleteProduct,
+  getCategories,
+  getFilteredProducts,
   getUser,
   loginUser,
   resetUserPassword,
+  restoreProduct,
   userForgotPassword,
   userRegistration,
   verifyUser,
@@ -13,6 +18,7 @@ import { isUser } from "packages/middleware/authorizeRoles";
 
 const router: Router = express.Router();
 
+//auth
 router.post("/registration", userRegistration);
 router.post("/verify-user", verifyUser);
 router.post("/login-user", loginUser);
@@ -20,5 +26,12 @@ router.get("/logged-in-user", isAuthenticated, isUser, getUser);
 router.post("/forgot-password-user", userForgotPassword);
 router.post("/verify-forgot-password-user", verifyUserForgotPassword);
 router.post("/reset-password-user", resetUserPassword);
+
+//product
+router.get("/get-categories", getCategories);
+router.post("/create-product", isAuthenticated, createProduct);
+router.get("/get-filtered-products", getFilteredProducts);
+router.delete("/delete-product/:productId", isAuthenticated, deleteProduct);
+router.put("/restore-product/:productId", isAuthenticated, restoreProduct);
 
 export default router;

@@ -6,6 +6,7 @@ import type { Request, Response } from "express";
 import swaggerUi from "swagger-ui-express";
 import authRouter from "./routes/auth.routes";
 import { errorMiddleware } from "./packages/error-handler/error-middleware";
+import initializeConfig from "configs/initializeSiteConfig";
 
 const swaggerDocument = await import("./swagger-output.json", {
   with: { type: "json" },
@@ -45,6 +46,12 @@ app.use(errorMiddleware);
 
 const server = app.listen(PORT, () => {
   console.log(`✅ Server running at http://localhost:${PORT}`);
+  try {
+    initializeConfig();
+    console.log("site config is initialized successfully");
+  } catch (error) {
+    console.log("Error while Initialized site config", error);
+  }
 });
 
 server.on("error", (err) => {

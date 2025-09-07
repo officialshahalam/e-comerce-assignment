@@ -7,9 +7,7 @@
   },
   "host": "localhost:4000/api",
   "basePath": "/",
-  "schemes": [
-    "http"
-  ],
+  "schemes": ["http"],
   "paths": {
     "/registration": {
       "post": {
@@ -177,6 +175,161 @@
                 }
               }
             }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/get-categories": {
+      "get": {
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/create-product": {
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "title": {
+                  "example": "bed sheet"
+                },
+                "description": {
+                  "example": "made up of pure cotten"
+                },
+                "category": {
+                  "example": "Clothing & Bedding"
+                },
+                "subCategory": {
+                  "example": "Bed Sheets"
+                },
+                "images": {
+                  "example": [
+                    {
+                      "fileId": "68bc5abe5c7cd75eb8c27325",
+                      "file_url": "https://ik.imagekit.io/aalam855/bazario/product/product-1753462778598_HYHFRIa2D.jpg?updatedAt=1753462780800"
+                    }
+                  ]
+                },
+                "sale_price": {
+                  "example": "40"
+                },
+                "regular_price": {
+                  "example": "50"
+                },
+                "colors": {
+                  "example": ["#ffffff", "#ff0000", "#00ff00"]
+                },
+                "sizes": {
+                  "example": ["XS", "S", "M"]
+                },
+                "stock": {
+                  "example": "100"
+                },
+                "warranty": {
+                  "example": "1 year warrenty"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          }
+        }
+      }
+    },
+    "/get-filtered-products": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "priceRange",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "1000",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "categories",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "colors",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "sizes",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/delete-product/{productId}": {
+      "delete": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "productId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/restore-product/{productId}": {
+      "put": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "productId",
+            "in": "path",
+            "required": true,
+            "type": "string"
           }
         ],
         "responses": {
