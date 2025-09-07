@@ -59,6 +59,8 @@ model Product {
   stock                 Int
   ratings               Float     @default(0)
   warranty              String?
+  starting_date         DateTime?
+  ending_date           DateTime?
   isDeleted             Boolean?  @default(false)
   deletedAt             DateTime?
   createdAt             DateTime  @default(now())

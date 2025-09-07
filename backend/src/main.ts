@@ -9,8 +9,6 @@ import authRouter from "./routes/auth.routes";
 import initializeConfig from "./configs/initializeSiteConfig";
 import { errorMiddleware } from "./packages/error-handler/error-middleware";
 
-
-
 const swaggerDocument = await import("./swagger-output.json", {
   with: { type: "json" },
 });
@@ -22,7 +20,7 @@ const app = express();
 
 app.use(
   cors({
-    origin: ["http://localhost:3000", "https://growlance-sh.vercel.app"],
+    origin: ["http://localhost:3000"],
     allowedHeaders: ["Authorization", "Content-Type"],
     credentials: true,
   })

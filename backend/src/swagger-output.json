@@ -7,7 +7,9 @@
   },
   "host": "localhost:4000/api",
   "basePath": "/",
-  "schemes": ["http"],
+  "schemes": [
+    "http"
+  ],
   "paths": {
     "/registration": {
       "post": {
@@ -208,42 +210,37 @@
               "type": "object",
               "properties": {
                 "title": {
-                  "example": "bed sheet"
+                  "example": "any"
                 },
                 "description": {
-                  "example": "made up of pure cotten"
+                  "example": "any"
                 },
                 "category": {
-                  "example": "Clothing & Bedding"
+                  "example": "any"
                 },
                 "subCategory": {
-                  "example": "Bed Sheets"
+                  "example": "any"
                 },
                 "images": {
-                  "example": [
-                    {
-                      "fileId": "68bc5abe5c7cd75eb8c27325",
-                      "file_url": "https://ik.imagekit.io/aalam855/bazario/product/product-1753462778598_HYHFRIa2D.jpg?updatedAt=1753462780800"
-                    }
-                  ]
+                  "example": "any"
                 },
                 "sale_price": {
-                  "example": "40"
+                  "example": "any"
                 },
                 "regular_price": {
-                  "example": "50"
+                  "example": "any"
                 },
                 "colors": {
-                  "example": ["#ffffff", "#ff0000", "#00ff00"]
+                  "example": "any"
                 },
                 "sizes": {
-                  "example": ["XS", "S", "M"]
+                  "example": "any"
                 },
                 "stock": {
-                  "example": "100"
+                  "example": "any"
                 },
                 "warranty": {
-                  "example": "1 year warrenty"
+                  "example": "any"
                 }
               }
             }
@@ -256,7 +253,103 @@
         }
       }
     },
+    "/get-all-products": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "type",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/get-filtered-products": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "priceRange",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "1000",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "categories",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "colors",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "sizes",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/get-all-offers": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/get-filtered-offers": {
       "get": {
         "description": "",
         "parameters": [

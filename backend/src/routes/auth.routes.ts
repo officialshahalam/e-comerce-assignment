@@ -2,7 +2,10 @@ import express, { Router } from "express";
 import {
   createProduct,
   deleteProduct,
+  getAllOffers,
+  getAllProduct,
   getCategories,
+  getFilteredOffers,
   getFilteredProducts,
   getUser,
   loginUser,
@@ -30,7 +33,10 @@ router.post("/reset-password-user", resetUserPassword);
 //product
 router.get("/get-categories", getCategories);
 router.post("/create-product", isAuthenticated, createProduct);
+router.get("/get-all-products", getAllProduct);
 router.get("/get-filtered-products", getFilteredProducts);
+router.get("/get-all-offers", getAllOffers);
+router.get("/get-filtered-offers", getFilteredOffers);
 router.delete("/delete-product/:productId", isAuthenticated, deleteProduct);
 router.put("/restore-product/:productId", isAuthenticated, restoreProduct);
 
