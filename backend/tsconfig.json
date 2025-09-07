@@ -13,10 +13,6 @@
     "declaration": true,
     "declarationMap": true,
     "sourceMap": true,
-    "baseUrl": "./src",
-    "paths": {
-      "@packages/*": ["src/packages/*"]
-    }
   },
   "include": ["src"],
   "exclude": ["dist", "node_modules"]

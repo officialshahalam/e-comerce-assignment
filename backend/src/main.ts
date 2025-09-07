@@ -5,8 +5,11 @@ import cookieParser from "cookie-parser";
 import type { Request, Response } from "express";
 import swaggerUi from "swagger-ui-express";
 import authRouter from "./routes/auth.routes";
+
+import initializeConfig from "./configs/initializeSiteConfig";
 import { errorMiddleware } from "./packages/error-handler/error-middleware";
-import initializeConfig from "configs/initializeSiteConfig";
+
+
 
 const swaggerDocument = await import("./swagger-output.json", {
   with: { type: "json" },

@@ -13,8 +13,8 @@ import {
   verifyUser,
   verifyUserForgotPassword,
 } from "../controllers/auth.controller";
-import isAuthenticated from "packages/middleware/isAuthenticated";
-import { isUser } from "packages/middleware/authorizeRoles";
+import isAuthenticated from "../packages/middleware/isAuthenticated";
+import { isUser } from "../packages/middleware/authorizeRoles";
 
 const router: Router = express.Router();
 

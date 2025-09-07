@@ -1,18 +1,21 @@
 import type { NextFunction, Request, Response } from "express";
-import { AuthError, ValidationError } from "../packages/error-handler/index";
+
 import bcrypt from "bcryptjs";
-import prisma from "configs/prisma";
+
 import {
-  checkOtpRestrictions,
+  verifyOtp,
   sendOtp,
   setCookie,
   traceOtpRequests,
   validateRegistrationData,
   verifyForgotPasswordOtp,
-  verifyOtp,
-} from "packages/utils/auth.hepler";
+  checkOtpRestrictions,
+} from "../packages/utils/auth.hepler";
 import { randomUUID } from "crypto";
 import jwt from "jsonwebtoken";
+import { AuthError, ValidationError } from "../packages/error-handler";
+import {} from "../packages/utils/auth.hepler";
+import prisma from "../configs/prisma";
 
 export const userRegistration = async (
   req: Request,

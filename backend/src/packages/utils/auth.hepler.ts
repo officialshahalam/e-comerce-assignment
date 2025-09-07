@@ -1,10 +1,12 @@
 import crypto from "crypto";
 
-import redis from "configs/radis";
+
 import { NextFunction, Request, Response } from "express";
-import prisma from "configs/prisma";
-import { ValidationError } from "packages/error-handler";
+
+
 import { sendEmail } from "./sendMail";
+import { ValidationError } from "../error-handler";
+import redis from "../../configs/radis";
 
 export const setCookie = (name: string, value: string, res: Response) => {
   res.cookie(name, value, {

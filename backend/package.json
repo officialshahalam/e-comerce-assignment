@@ -11,7 +11,7 @@
     "docs": "node src/swagger.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "", 
   "license": "ISC",
   "description": "",
   "dependencies": {
