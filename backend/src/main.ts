@@ -20,7 +20,7 @@ const app = express();
 
 app.use(
   cors({
-    origin: ["http://localhost:3000"],
+    origin: ["http://localhost:3000","https://e-comerce-assignment.vercel.app/"],
     allowedHeaders: ["Authorization", "Content-Type"],
     credentials: true,
   })
