@@ -1,21 +1,35 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import { ShoppingCart, User, LogOut } from "lucide-react";
+import { ShoppingCart, LogOut } from "lucide-react";
 import Link from "next/link";
 import { useCartStore } from "@/stores/cartStore";
 import { useUserStore } from "@/stores/userStore";
 import { navItem, userMenu } from "@/constants";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
+import axiosInstance from "@/utils/axiosInstance";
 
 const Navbar = () => {
   const cart = useCartStore((state: any) => state.cart);
   const user = useUserStore((state: any) => state.user);
+  const { clearUser } = useUserStore();
+  const router = useRouter();
 
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [showUserMenu, setShowUserMenu] = useState(false);
   const [hydrated, setHydrated] = useState(false);
 
+  const handleLogout = async () => {
+    try {
+      await axiosInstance.post("/api/logout-user");
+
+      clearUser();
+      router.replace("/login");
+    } catch (error) {
+      console.error("Logout failed", error);
+    }
+  };
+
   useEffect(() => {
-    // Prevent hydration mismatch by only rendering after mount
     setHydrated(true);
   }, []);
 
@@ -87,10 +101,21 @@ const Navbar = () => {
                     onClick={() => setShowUserMenu(!showUserMenu)}
                     className="flex items-center space-x-2 text-gray-700 hover:text-blue-600 transition-colors duration-200 px-3 py-2 rounded-md hover:bg-gray-50"
                   >
-                    <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center">
-                      <User size={16} className="text-white" />
-                    </div>
-                    <span className="font-medium">{user?.name ?? "Guest"}</span>
+                    <Image
+                      src={
+                        "https://ik.imagekit.io/aalam855/MyMedia/seller-avatar.avif?updatedAt=1757217987681"
+                      }
+                      width={32}
+                      height={32}
+                      alt={user?.name || "Guest"}
+                      className="rounded-full"
+                    />
+                    <span className="flex flex-col">
+                      <span className="text-sm font-medium">
+                        {user?.name ?? "Guest"}
+                      </span>
+                      <span className=" text-xs">ansari</span>
+                    </span>
                   </button>
 
                   {showUserMenu && (
@@ -109,7 +134,7 @@ const Navbar = () => {
 
                       <hr className="my-1" />
                       <button
-                        // onClick={handleLogout}
+                        onClick={handleLogout}
                         className="flex items-center space-x-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left"
                       >
                         <LogOut size={16} />

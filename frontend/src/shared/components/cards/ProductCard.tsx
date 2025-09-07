@@ -29,7 +29,7 @@ const ProductCard = ({
           Limited Stock
         </div>
       )}
-      <Link href={`/product/${product?.slug}`}>
+      <Link href={`/products/${product?.id}`}>
         <img
           src={product?.images[0]?.url || ""}
           alt={product.title}

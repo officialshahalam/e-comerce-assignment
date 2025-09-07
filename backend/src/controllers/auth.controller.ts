@@ -97,6 +97,14 @@ export const loginUser = async (
     }
     const user = await prisma.user.findUnique({
       where: { email },
+      include: {
+        avatar: {
+          select: {
+            file_id: true,
+            url: true,
+          },
+        },
+      },
     });
 
     if (!user) {
@@ -126,6 +134,8 @@ export const loginUser = async (
         id: user.id,
         email: user.email,
         name: user.name,
+        avatar: user.avatar,
+        role: user.role,
       },
     });
   } catch (e) {
@@ -140,6 +150,25 @@ export const getUser = async (req: any, res: Response, next: NextFunction) => {
       success: true,
       user,
     });
+  } catch (error) {
+    return next(error);
+  }
+};
+
+export const logoutUser = async (
+  req: any,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    res.clearCookie("access_token", {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "strict",
+      path: "/", // important so middleware can't see it anymore
+    });
+
+    return res.json({ success: true, message: "Logged out successfully" });
   } catch (error) {
     return next(error);
   }

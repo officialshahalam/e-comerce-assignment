@@ -9,6 +9,7 @@ import {
   getFilteredProducts,
   getUser,
   loginUser,
+  logoutUser,
   resetUserPassword,
   restoreProduct,
   userForgotPassword,
@@ -22,10 +23,11 @@ import { isUser } from "../packages/middleware/authorizeRoles";
 const router: Router = express.Router();
 
 //auth
-router.post("/registration", userRegistration);
+router.post("/registration-user", userRegistration);
 router.post("/verify-user", verifyUser);
 router.post("/login-user", loginUser);
 router.get("/logged-in-user", isAuthenticated, isUser, getUser);
+router.post("/logout-user",logoutUser)
 router.post("/forgot-password-user", userForgotPassword);
 router.post("/verify-forgot-password-user", verifyUserForgotPassword);
 router.post("/reset-password-user", resetUserPassword);

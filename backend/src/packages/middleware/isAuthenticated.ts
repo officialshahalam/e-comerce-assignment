@@ -30,7 +30,7 @@ const isAuthenticated = async (req: any, res: Response, next: NextFunction) => {
       include: {
         avatar: true,
       },
-    });
+    }); 
 
     if (!user) {
       return res.status(401).json({ message: "Account not found" });
