@@ -1,5 +1,6 @@
 "use client";
 import { useCartStore } from "@/stores/cartStore";
+import { Product } from "@/types";
 
 import Image from "next/image";
 import Link from "next/link";
@@ -7,31 +8,31 @@ import Link from "next/link";
 import React, { useState } from "react";
 
 const Page = () => {
-  const cart = useCartStore((state: any) => state.cart);
-  const removeFromCart = useCartStore((state: any) => state.removeFromCart);
+  const cart = useCartStore((state) => state.cart);
+  const removeFromCart = useCartStore((state) => state.removeFromCart);
 
   const [couponCode, setCouponCode] = useState("");
   const [selectedAddress, setSelectedAddress] = useState("");
 
   const subTotal = cart.reduce(
-    (total: number, item: any) => total + item.quantity * item.sale_price,
+    (total, item) => total + item.quantity * item.sale_price,
     0
   );
 
   const decreaseQuantity = (id: string) => {
-    useCartStore.setState((state: any) => ({
-      cart: state.cart.map((item: any) =>
-        item.id === id && item.quantity > 1
-          ? { ...item, quantity: item.quantity - 1 }
+    useCartStore.setState((state) => ({
+      cart: state.cart.map((item) =>
+        item.id === id && (item.quantity ?? 1) > 1
+          ? { ...item, quantity: (item.quantity ?? 1) - 1 }
           : item
       ),
     }));
   };
   const increaseQuantity = (id: string) => {
-    useCartStore.setState((state: any) => ({
-      cart: state.cart.map((item: any) =>
-        item.id === id && item.quantity < 10
-          ? { ...item, quantity: item.quantity + 1 }
+    useCartStore.setState((state) => ({
+      cart: state.cart.map((item) =>
+        item.id === id && (item.quantity ?? 1) < 10
+          ? { ...item, quantity: (item.quantity ?? 1) + 1 }
           : item
       ),
     }));
@@ -76,7 +77,7 @@ const Page = () => {
                 </tr>
               </thead>
               <tbody>
-                {cart?.map((item: any) => (
+                {cart?.map((item: Product) => (
                   <tr key={item?.id} className="border-b border-b-[#0000000e]">
                     <td className="flex items-center gap-3 p-4">
                       <Image
@@ -162,7 +163,7 @@ const Page = () => {
                   <input
                     type="text"
                     value={couponCode}
-                    onChange={(e: any) => {
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                       setCouponCode(e.target.value);
                     }}
                     placeholder="Enter Coupon code"
@@ -183,7 +184,7 @@ const Page = () => {
                   <select
                     className="w-full p-2 border border-gray-200 rounded-l-md focus:outline-none focus:border-blue-500"
                     value={selectedAddress}
-                    onChange={(e) => {
+                    onChange={(e:React.ChangeEvent<HTMLSelectElement>) => {
                       setSelectedAddress(e.target.value);
                     }}
                   >

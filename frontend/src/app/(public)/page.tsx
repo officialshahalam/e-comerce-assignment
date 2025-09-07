@@ -7,6 +7,7 @@ import Hero from "@/shared/components/Hero";
 import SectionTitle from "@/shared/components/SectionTitle";
 import ProductCard from "@/shared/components/cards/ProductCard";
 import axiosInstance from "@/utils/axiosInstance";
+import { Product } from "@/types";
 
 const Home = () => {
   const { data: products, isLoading: productLoading } = useQuery({
@@ -41,7 +42,7 @@ const Home = () => {
           <p className="text-center">No Products Available Yet!</p>
         ) : (
           <div className="m-auto grid grid-cols-1 sm:grid-cols-3 md:grid-cols-5 gap-5">
-            {products?.map((product: any) => {
+            {products?.map((product: Product) => {
               const now = new Date();
               const start = product.starting_date
                 ? new Date(product.starting_date)

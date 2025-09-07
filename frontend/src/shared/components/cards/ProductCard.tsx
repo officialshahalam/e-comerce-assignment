@@ -1,21 +1,23 @@
 import Link from "next/link";
 import React from "react";
 
-import { Eye, Heart, ShoppingBag } from "lucide-react";
+import { ShoppingBag } from "lucide-react";
 
 import Ratings from "../Ratings";
 import { useCartStore } from "@/stores/cartStore";
+import { Product } from "@/types";
+import Image from "next/image";
 
 const ProductCard = ({
   product,
   isEvent,
 }: {
-  product: any;
+  product: Product;
   isEvent?: boolean;
 }) => {
-  const cart = useCartStore((state: any) => state.cart);
-  const addToCart = useCartStore((state: any) => state.addToCart);
-  const isInCart = cart.some((item: any) => item.id === product.id);
+  const { cart } = useCartStore();
+  const { addToCart } = useCartStore();
+  const isInCart = cart.some((item) => item.id === product.id);
 
   return (
     <div className="w-full min-h-[350px] pb-8 h-max bg-white rounded-lg relative">
@@ -30,7 +32,7 @@ const ProductCard = ({
         </div>
       )}
       <Link href={`/products/${product?.id}`}>
-        <img
+        <Image
           src={product?.images[0]?.url || ""}
           alt={product.title}
           width={300}
@@ -38,13 +40,7 @@ const ProductCard = ({
           className="w-full  h-[200px] object-cover mx-auto rounded-t-md"
         />
       </Link>
-      <Link
-        href={`/shop/${product?.shop?.id}`}
-        className="block text-blue-500 text-sm font-medium my-2 px-2"
-      >
-        {product?.shop?.name}
-      </Link>
-      <Link href={`/shop/${product?.slug}`}>
+      <Link href={`/shop/${product?.id}`}>
         <h1 className="text-base font-semibold px-2 text-gray-800 w-48 truncate">
           {product?.title}
         </h1>
@@ -61,9 +57,6 @@ const ProductCard = ({
             ${product?.regular_price}
           </span>
         </div>
-        <span className="text-green-500 text-sm font-medium">
-          {product?.totalSales || 37} sold
-        </span>
       </div>
 
       <div className="absolute z-10 flex flex-col gap-3 right-3 top-2">

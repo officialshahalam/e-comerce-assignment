@@ -10,8 +10,8 @@ import { useRouter } from "next/navigation";
 import axiosInstance from "@/utils/axiosInstance";
 
 const Navbar = () => {
-  const cart = useCartStore((state: any) => state.cart);
-  const user = useUserStore((state: any) => state.user);
+  const { cart } = useCartStore();
+  const { user } = useUserStore();
   const { clearUser } = useUserStore();
   const router = useRouter();
 

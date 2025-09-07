@@ -1,13 +1,8 @@
+import { Product } from "@/types";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
-interface Product {
-  id: string;
-  title: string;
-  price: number;
-  image: string;
-  quantity?: number;
-}
+
 
 interface Store {
   cart: Product[];
@@ -17,7 +12,7 @@ interface Store {
 
 export const useCartStore = create<Store>()(
   persist<Store>(
-    (set, get) => ({
+    (set, _get) => ({
       cart: [],
       wishlist: [],
 

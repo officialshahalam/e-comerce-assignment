@@ -1,5 +1,6 @@
 "use client";
 import ProductCard from "@/shared/components/cards/ProductCard";
+import { Product } from "@/types";
 import axiosInstance from "@/utils/axiosInstance";
 import { useQuery } from "@tanstack/react-query";
 
@@ -12,15 +13,6 @@ import { getTrackBackground, Range } from "react-range";
 const MIN = 0;
 const MAX = 1199;
 const STEP = 1;
-const colors = [
-  { name: "Black", code: "#000000" },
-  { name: "Red", code: "#ff0000" },
-  { name: "Green", code: "#00ff00" },
-  { name: "Blue", code: "#0000ff" },
-  { name: "Yellow", code: "#ffff00" },
-  { name: "Magenta", code: "#ff00ff" },
-  { name: "Cyan", code: "#00ffff" },
-];
 
 const sizes = ["XS", "S", "M", "L", "XL", "XXL"];
 
@@ -31,9 +23,8 @@ const Page = () => {
   const [priceRange, setPriceRange] = useState([0, 1199]);
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [selectedSizes, setSelectedSizes] = useState<string[]>([]);
-  const [selectedColors, setSelectedColors] = useState<string[]>([]);
   const [page, setPage] = useState(1);
-  const [products, setProducts] = useState<any[]>([]);
+  const [products, setProducts] = useState<Product[]>([]);
   const [totalPages, setTotalPages] = useState(1);
   const [tempPriceRange, setTempPriceRange] = useState([MIN + 100, MAX - 180]);
 
@@ -42,9 +33,6 @@ const Page = () => {
     params.set("priceRange", priceRange.join(","));
     if (selectedCategories.length > 0) {
       params.set("categories", selectedCategories.join(","));
-    }
-    if (selectedColors.length > 0) {
-      params.set("colors", selectedColors.join(","));
     }
     if (selectedSizes.length > 0) {
       params.set("sizes", selectedSizes.join(","));
@@ -60,9 +48,6 @@ const Page = () => {
       query.set("priceRange", priceRange.join(","));
       if (selectedCategories.length > 0) {
         query.set("categories", selectedCategories.join(","));
-      }
-      if (selectedColors.length > 0) {
-        query.set("colors", selectedColors.join(","));
       }
       if (selectedSizes?.length > 0) {
         query.set("sizes", selectedSizes.join(","));
@@ -98,7 +83,14 @@ const Page = () => {
   useEffect(() => {
     updateURL();
     fetchFilteredProducts();
-  }, [priceRange, selectedCategories, selectedColors, selectedSizes, page]);
+  }, [
+    priceRange,
+    selectedCategories,
+    updateURL,
+    fetchFilteredProducts,
+    selectedSizes,
+    page,
+  ]);
 
   const { data, isLoading } = useQuery({
     queryKey: ["categories"],
@@ -190,7 +182,7 @@ const Page = () => {
               {isLoading ? (
                 <p>Loading ...</p>
               ) : (
-                data?.categories?.map((category: any) => (
+                data?.categories?.map((category: string) => (
                   <li
                     key={category}
                     className="flex items-center justify-between"
@@ -240,7 +232,7 @@ const Page = () => {
               </div>
             ) : products.length > 0 ? (
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-5">
-                {products?.map((product: any) => {
+                {products?.map((product: Product) => {
                   const now = new Date();
                   const start = product.starting_date
                     ? new Date(product.starting_date)

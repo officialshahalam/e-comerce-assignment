@@ -66,7 +66,7 @@ const Page = () => {
             Login to Bazario
           </h3>
           <p className="text-center text-gray-500 mb-4">
-            Don't have an account?{" "}
+            Don&apos;t have an account?{" "}
             <Link href={"/signup"} className="text-blue-500">
               Sign Up
             </Link>
