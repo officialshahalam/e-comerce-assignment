@@ -77,7 +77,7 @@ I have successfully completed the e-commerce assignment with all required featur
 
 ## 📎 Submission Links  
 - **Frontend (Vercel):** [Live Demo](https://e-comerce-assignment.vercel.app/)  
-- **Backend (Render):** [API Link](https://e-comerce-assignment.onrender.com/)
+- **Backend (Render):** [API Link](https://e-comerce-assignment.onrender.com/docs)
 
 
 ## 🙌 Acknowledgement  
