@@ -477,6 +477,7 @@ export const getAllOffers = async (
     const limit = parseInt(req.query.limit as string) || 20;
     const skip = (page - 1) * limit;
     const now = new Date();
+
     const baseFilter = {
       starting_date: {
         lte: now,
@@ -533,17 +534,17 @@ export const getFilteredOffers = async (
     const skip = (parsedPage - 1) * parsedLimit;
 
     const now = new Date();
+
     const filters: Record<string, any> = {
       sale_price: {
         gte: parsedPriceRange[0],
         lte: parsedPriceRange[1],
       },
-
       starting_date: {
-        lte: now, // Offer has started
+        lte: now,
       },
       ending_date: {
-        gte: now, // Offer hasn't ended yet
+        gte: now,
       },
     };
     if (categories && (categories as string[]).length > 0) {
