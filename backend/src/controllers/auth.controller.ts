@@ -64,7 +64,7 @@ export const verifyUser = async (
       url: `https://api.dicebear.com/7.x/initials/svg?seed=${encodeURIComponent(
         name
       )}`,
-    };
+    }; 
 
     await prisma.user.create({
       data: {
