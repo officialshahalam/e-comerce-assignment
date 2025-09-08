@@ -84,14 +84,7 @@ const Page = () => {
   useEffect(() => {
     updateURL();
     fetchFilteredProducts();
-  }, [
-    priceRange,
-    selectedCategories,
-    selectedSizes,
-    page,
-    updateURL,
-    fetchFilteredProducts,
-  ]);
+  }, [priceRange, selectedCategories, selectedSizes, page]);
 
   const { data, isLoading } = useQuery({
     queryKey: ["categories"],
