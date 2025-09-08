@@ -43,9 +43,7 @@ I have successfully completed the e-commerce assignment with all required featur
 
 ---
 
-## ✨ Implemented Features  
-
-### ✅ Core Requirements  
+## ✅ Implemented Features  
 
 **Backend APIs**  
 - **Authentication APIs:** JWT-based secure login/signup with token refresh  
