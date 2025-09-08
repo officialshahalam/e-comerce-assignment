@@ -4,12 +4,10 @@
 **Date:** September 8, 2025  
 **Assignment:** Full-Stack E-Commerce Web Application  
 
----
 
 ## 🎯 Project Overview  
 I have successfully completed the e-commerce assignment with all required features and additional enhancements. The project is built with modern tools and follows production-ready best practices.  
 
----
 
 ## 🛠️ Tech Stack  
 
@@ -28,7 +26,6 @@ I have successfully completed the e-commerce assignment with all required featur
 - **JWT** – Secure authentication mechanism  
 - **Swagger** – Comprehensive API documentation  
 
----
 
 ## 🚀 Deployment & Production Quality  
 
@@ -41,7 +38,6 @@ I have successfully completed the e-commerce assignment with all required featur
 - ➡️ **Extension-less Imports** – Clean, maintainable import statements following Node.js ESM standards  
 - ➡️ **Lint-Free Codebase** – ESLint and Prettier integration with zero warnings  
 
----
 
 ## ✅ Implemented Features  
 
@@ -57,7 +53,6 @@ I have successfully completed the e-commerce assignment with all required featur
 - **Cart Page:** Detailed cart management with quantity controls and item removal  
 - **Cart Persistence:** Cart items persist across login/logout sessions  
 
----
 
 ## 🔒 Security Implementation  
 - **JWT Authentication:** Secure token-based authentication  
@@ -65,7 +60,6 @@ I have successfully completed the e-commerce assignment with all required featur
 - **Route Protection:** Middleware-based access control  
 - **Input Validation:** Server-side and client-side validation  
 
----
 
 ## 📚 Deployment & Documentation  
 
@@ -80,14 +74,11 @@ I have successfully completed the e-commerce assignment with all required featur
 - **Request/Response Examples:** Clear API usage examples  
 - **Authentication Guide:** JWT implementation details  
 
----
 
 ## 📎 Submission Links  
-- **Frontend (Vercel):** [Live Demo](#)  
-- **Backend (Render):** [API Link](#)  
-- **GitHub Repository:** [Source Code](#)  
+- **Frontend (Vercel):** [Live Demo](https://e-comerce-assignment.vercel.app/)  
+- **Backend (Render):** [API Link](https://e-comerce-assignment.onrender.com/)
 
----
 
 ## 🙌 Acknowledgement  
 This project was built as part of the **E-Commerce Internship Assignment**. It demonstrates full-stack development skills, production-ready practices, and integration of modern web technologies.  
