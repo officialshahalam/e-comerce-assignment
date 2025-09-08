@@ -7,9 +7,7 @@
   },
   "host": "e-comerce-assignment.onrender.com",
   "basePath": "/api",
-  "schemes": [
-    "https"
-  ],
+  "schemes": ["https"],
   "paths": {
     "/registration-user": {
       "post": {
@@ -22,10 +20,10 @@
               "type": "object",
               "properties": {
                 "name": {
-                  "example": "any"
+                  "example": "Mohd Shahalam"
                 },
                 "email": {
-                  "example": "any"
+                  "example": "officialshahalam855@gmail.com"
                 }
               }
             }
@@ -49,16 +47,16 @@
               "type": "object",
               "properties": {
                 "name": {
-                  "example": "any"
+                  "example": "Mohd Shahalam"
                 },
                 "email": {
-                  "example": "any"
+                  "example": "officialshahalam855@gmail.com"
                 },
                 "password": {
-                  "example": "any"
+                  "example": "......"
                 },
                 "otp": {
-                  "example": "any"
+                  "example": "1234"
                 }
               }
             }
@@ -82,10 +80,10 @@
               "type": "object",
               "properties": {
                 "email": {
-                  "example": "any"
+                  "example": "ansarishahalam855@gmail.com"
                 },
                 "password": {
-                  "example": "any"
+                  "example": "......"
                 }
               }
             }
@@ -129,7 +127,7 @@
               "type": "object",
               "properties": {
                 "email": {
-                  "example": "any"
+                  "example": "officialshahalam855@gmail.com"
                 }
               }
             }
@@ -153,10 +151,10 @@
               "type": "object",
               "properties": {
                 "email": {
-                  "example": "any"
+                  "example": "officialshahalam855@gmail.com"
                 },
                 "otp": {
-                  "example": "any"
+                  "example": "1234"
                 }
               }
             }
@@ -180,10 +178,10 @@
               "type": "object",
               "properties": {
                 "email": {
-                  "example": "any"
+                  "example": "officialshahalam855@gmail.com"
                 },
                 "newPassword": {
-                  "example": "any"
+                  "example": "...."
                 }
               }
             }
@@ -211,7 +209,7 @@
     },
     "/create-product": {
       "post": {
-        "description": "",
+        "description": "Create a new product",
         "parameters": [
           {
             "name": "body",
@@ -220,45 +218,81 @@
               "type": "object",
               "properties": {
                 "title": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "Smartphone X1"
                 },
                 "description": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "Latest 5G smartphone with AMOLED display"
                 },
                 "category": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "Electronics"
                 },
                 "subCategory": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "Mobiles"
                 },
                 "images": {
-                  "example": "any"
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "fileId": {
+                        "type": "string",
+                        "example": "file_elec_001"
+                      },
+                      "file_url": {
+                        "type": "string",
+                        "example": "https://ik.imagekit.io/aalam855/MyMedia/samsumgS1.jpg?updatedAt=1757240096812"
+                      }
+                    }
+                  }
                 },
                 "sale_price": {
-                  "example": "any"
+                  "type": "number",
+                  "example": 699
                 },
                 "regular_price": {
-                  "example": "any"
+                  "type": "number",
+                  "example": 799
                 },
                 "colors": {
-                  "example": "any"
+                  "type": "array",
+                  "items": { "type": "string" },
+                  "example": ["black", "blue"]
                 },
                 "sizes": {
-                  "example": "any"
+                  "type": "array",
+                  "items": { "type": "string" },
+                  "example": []
                 },
                 "stock": {
-                  "example": "any"
+                  "type": "integer",
+                  "example": 50
                 },
                 "warranty": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "1 year warranty"
                 }
-              }
+              },
+              "required": [
+                "title",
+                "description",
+                "category",
+                "subCategory",
+                "images",
+                "sale_price",
+                "regular_price",
+                "colors",
+                "stock"
+              ]
             }
           }
         ],
         "responses": {
           "201": {
-            "description": "Created"
+            "description": "Product created successfully"
           }
         }
       }
@@ -296,11 +330,6 @@
         "parameters": [
           {
             "name": "priceRange",
-            "in": "query",
-            "type": "string"
-          },
-          {
-            "name": "1000",
             "in": "query",
             "type": "string"
           },
