@@ -5,10 +5,10 @@
     "description": "Automatically generate swagger docs",
     "version": "1.0.0"
   },
-  "host": "https://e-comerce-assignment.onrender.com/api",
-  "basePath": "/",
+  "host": "e-comerce-assignment.onrender.com",
+  "basePath": "/api",
   "schemes": [
-    "http"
+    "https"
   ],
   "paths": {
     "/registration-user": {

@@ -7,8 +7,9 @@ const doc = {
     description: "Automatically generate swagger docs",
     version: "1.0.0",
   },
-  host: "https://e-comerce-assignment.onrender.com/api",
-  schemes: ["http","https"],
+  host: "e-comerce-assignment.onrender.com", 
+  basePath: "/api",                          
+  schemes: ["https"],                        
 };
 
 const outputFile = path.resolve(process.cwd(), "swagger-output.json");
