@@ -7,15 +7,18 @@ const doc = {
     description: "Automatically generate swagger docs",
     version: "1.0.0",
   },
-  host: "localhost:4000/api",
+  host:
+    process.env.NODE_ENV === "production"
+      ? "https://e-comerce-assignment.onrender.com/api"
+      : "localhost:4000/api",
   schemes: ["http"],
 };
 
 const outputFile = path.resolve(process.cwd(), "swagger-output.json");
 const endpointsFiles = [
-  process.env.NODE_ENV === "production" 
+  process.env.NODE_ENV === "production"
     ? "./dist/routes/auth.routes.js"
-    : "./src/routes/auth.routes.ts"
+    : "./src/routes/auth.routes.ts",
 ];
 
 swaggerAutogen()(outputFile, endpointsFiles, doc).then(() => {
