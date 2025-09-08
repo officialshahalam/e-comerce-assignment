@@ -17,8 +17,8 @@ model Image {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
   file_id   String?
   url       String
-  user      User?     @relation(fields: [userId], references: [id])
-  userId    String?   @unique @db.ObjectId
+  user      User?    @relation(fields: [userId], references: [id])
+  userId    String?  @unique @db.ObjectId
   product   Product? @relation(fields: [productId], references: [id])
   productId String?  @db.ObjectId
 }
@@ -46,25 +46,25 @@ enum ProductStatus {
 }
 
 model Product {
-  id                    String    @id @default(auto()) @map("_id") @db.ObjectId
-  title                 String
-  description           String
-  category              String
-  subCategory           String 
-  images                Image[]
-  sale_price            Float
-  regular_price         Float
-  colors                String[]
-  sizes                 String[]
-  stock                 Int
-  ratings               Float     @default(0)
-  warranty              String?
-  starting_date         DateTime?
-  ending_date           DateTime?
-  isDeleted             Boolean?  @default(false)
-  deletedAt             DateTime?
-  createdAt             DateTime  @default(now())
-  updatedAt             DateTime  @updatedAt
+  id            String    @id @default(auto()) @map("_id") @db.ObjectId
+  title         String
+  description   String
+  category      String
+  subCategory   String
+  images        Image[]
+  sale_price    Float
+  regular_price Float
+  colors        String[]
+  sizes         String[]
+  stock         Int
+  ratings       Float     @default(0)
+  warranty      String?
+  starting_date DateTime?
+  ending_date   DateTime?
+  isDeleted     Boolean?  @default(false)
+  deletedAt     DateTime?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
 }
 
 model SiteConfig {
