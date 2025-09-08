@@ -4,7 +4,7 @@ import { ShoppingCart, LogOut } from "lucide-react";
 import Link from "next/link";
 import { useCartStore } from "@/stores/cartStore";
 import { useUserStore } from "@/stores/userStore";
-import { navItem, userMenu } from "@/constants";
+import { navItem } from "@/constants";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import axiosInstance from "@/utils/axiosInstance";
@@ -29,22 +29,16 @@ const Navbar = () => {
     }
   };
 
-  const handleMenuItemClick = (href: string) => {
-    console.log('Navigating to:', href);
-    setShowUserMenu(false); 
-    router.push(href);
-  };
-
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       const target = event.target as Element;
-      if (showUserMenu && !target.closest('.user-dropdown')) {
+      if (showUserMenu && !target.closest(".user-dropdown")) {
         setShowUserMenu(false);
       }
     };
 
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [showUserMenu]);
 
   useEffect(() => {
@@ -138,18 +132,6 @@ const Navbar = () => {
 
                   {showUserMenu && (
                     <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50 border">
-                      {userMenu.map(({ href, Icon, label }, index) => (
-                        <button
-                          key={index}
-                          className="flex items-center space-x-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left transition-colors duration-200"
-                          onClick={() => handleMenuItemClick(href)}
-                        >
-                          <Icon size={16} />
-                          <span>{label}</span>
-                        </button>
-                      ))}
-
-                      <hr className="my-1" />
                       <button
                         onClick={handleLogout}
                         className="flex items-center space-x-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left transition-colors duration-200"
