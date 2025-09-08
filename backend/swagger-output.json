@@ -11,7 +11,7 @@
     "http"
   ],
   "paths": {
-    "/registration": {
+    "/registration-user": {
       "post": {
         "description": "",
         "parameters": [
@@ -104,6 +104,16 @@
         "responses": {
           "201": {
             "description": "Created"
+          }
+        }
+      }
+    },
+    "/logout-user": {
+      "post": {
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
           }
         }
       }

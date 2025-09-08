@@ -6,10 +6,10 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "tsx watch src/main.ts",
-    "build": "npm i && prisma generate && tsc && tsc-esm-fix",
+    "build": "npm i && npx prisma generate && tsc && tsc-esm-fix",
     "start": "node dist/main.js",
-    "docs": "node src/swagger.js",
-    "script": "node src/custom-script.js"
+    "docs": "tsx src/swagger.ts",
+    "script": "tsx src/custom-script.ts"
   },
   "keywords": [],
   "author": "",
