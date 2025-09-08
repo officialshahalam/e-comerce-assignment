@@ -479,14 +479,9 @@ export const getAllOffers = async (
     const limit = parseInt(req.query.limit as string) || 20;
     const skip = (page - 1) * limit;
     const baseFilter = {
-      AND: [
-        {
-          starting_date: { not: null },
-        },
-        {
-          ending_date: { not: null },
-        },
-      ],
+      NOT: {
+        starting_date: null,
+      },
     };
 
     const [events, total] = await Promise.all([
