@@ -6,13 +6,13 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "tsx watch src/main.ts",
-    "build": "tsc && tsc-esm-fix",
+    "build": "npm i && prisma generate && tsc && tsc-esm-fix",
     "start": "node dist/main.js",
     "docs": "node src/swagger.js",
     "script": "node src/custom-script.js"
   },
   "keywords": [],
-  "author": "", 
+  "author": "",
   "license": "ISC",
   "description": "",
   "dependencies": {
