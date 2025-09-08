@@ -8,7 +8,7 @@ const doc = {
     version: "1.0.0",
   },
   host: "https://e-comerce-assignment.onrender.com/api",
-  schemes: ["http"],
+  schemes: ["http","https"],
 };
 
 const outputFile = path.resolve(process.cwd(), "swagger-output.json");
