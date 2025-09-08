@@ -328,8 +328,6 @@ export const createProduct = async (
         sale_price: parseFloat(sale_price),
         regular_price: parseFloat(regular_price),
         warranty,
-        starting_date: null,
-        ending_date: null,
       },
       include: { images: true },
     });
@@ -478,9 +476,13 @@ export const getAllOffers = async (
     const page = parseInt(req.query.page as string) || 1;
     const limit = parseInt(req.query.limit as string) || 20;
     const skip = (page - 1) * limit;
+    const now = new Date();
     const baseFilter = {
-      NOT: {
-        starting_date: null,
+      starting_date: {
+        lte: now,
+      },
+      ending_date: {
+        gte: now,
       },
     };
 
@@ -530,13 +532,18 @@ export const getFilteredOffers = async (
 
     const skip = (parsedPage - 1) * parsedLimit;
 
+    const now = new Date();
     const filters: Record<string, any> = {
       sale_price: {
         gte: parsedPriceRange[0],
         lte: parsedPriceRange[1],
       },
-      NOT: {
-        starting_date: null,
+
+      starting_date: {
+        lte: now, // Offer has started
+      },
+      ending_date: {
+        gte: now, // Offer hasn't ended yet
       },
     };
     if (categories && (categories as string[]).length > 0) {
