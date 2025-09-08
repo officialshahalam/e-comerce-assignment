@@ -21,13 +21,31 @@ const Navbar = () => {
   const handleLogout = async () => {
     try {
       await axiosInstance.post("/api/logout-user");
-
       clearUser();
+      setShowUserMenu(false); // Close menu before redirect
       router.replace("/login");
     } catch (error) {
       console.error("Logout failed", error);
     }
   };
+
+  const handleMenuItemClick = (href: string) => {
+    console.log('Navigating to:', href);
+    setShowUserMenu(false); 
+    router.push(href);
+  };
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      const target = event.target as Element;
+      if (showUserMenu && !target.closest('.user-dropdown')) {
+        setShowUserMenu(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [showUserMenu]);
 
   useEffect(() => {
     setHydrated(true);
@@ -96,7 +114,7 @@ const Navbar = () => {
                 </div>
               ) : (
                 // If user logged in → show dropdown
-                <div className="relative">
+                <div className="relative user-dropdown">
                   <button
                     onClick={() => setShowUserMenu(!showUserMenu)}
                     className="flex items-center space-x-2 text-gray-700 hover:text-blue-600 transition-colors duration-200 px-3 py-2 rounded-md hover:bg-gray-50"
@@ -114,7 +132,7 @@ const Navbar = () => {
                       <span className="text-sm font-medium">
                         {user?.name ?? "Guest"}
                       </span>
-                      <span className=" text-xs">ansari</span>
+                      <span className="text-xs text-gray-500">ansari</span>
                     </span>
                   </button>
 
@@ -123,11 +141,8 @@ const Navbar = () => {
                       {userMenu.map(({ href, Icon, label }, index) => (
                         <button
                           key={index}
-                          className="flex items-center space-x-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                          onClick={() => {
-                            setShowUserMenu(false);
-                            router.push(href);
-                          }}
+                          className="flex items-center space-x-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left transition-colors duration-200"
+                          onClick={() => handleMenuItemClick(href)}
                         >
                           <Icon size={16} />
                           <span>{label}</span>
@@ -137,7 +152,7 @@ const Navbar = () => {
                       <hr className="my-1" />
                       <button
                         onClick={handleLogout}
-                        className="flex items-center space-x-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left"
+                        className="flex items-center space-x-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left transition-colors duration-200"
                       >
                         <LogOut size={16} />
                         <span>Logout</span>
