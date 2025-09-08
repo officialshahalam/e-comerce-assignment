@@ -7,10 +7,7 @@ const doc = {
     description: "Automatically generate swagger docs",
     version: "1.0.0",
   },
-  host:
-    process.env.NODE_ENV === "production"
-      ? "https://e-comerce-assignment.onrender.com/api"
-      : "localhost:4000/api",
+  host: "https://e-comerce-assignment.onrender.com/api",
   schemes: ["http"],
 };
 
