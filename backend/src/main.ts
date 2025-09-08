@@ -17,11 +17,7 @@ const app = express();
 
 app.use(
   cors({
-    origin: [
-      "http://localhost:3000",
-      "https://e-comerce-assignment.vercel.app",
-      "https://e-comerce-assignment.onrender.com"
-    ],
+    origin: ["*"],
     allowedHeaders: ["Authorization", "Content-Type"],
     credentials: true,
   })
