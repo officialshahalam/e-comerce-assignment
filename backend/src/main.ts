@@ -20,6 +20,7 @@ app.use(
     origin: [
       "http://localhost:3000",
       "https://e-comerce-assignment.vercel.app",
+      "https://e-comerce-assignment.onrender.com"
     ],
     allowedHeaders: ["Authorization", "Content-Type"],
     credentials: true,
